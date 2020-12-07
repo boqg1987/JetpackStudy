@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xtxk.tnt.library.demo">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="remove">
+            <!-- node merge确保清单合并工具能正确处理冲突-->
+            <!-- This entry makes ExampleLoggerInitializer discoverable. -->
+            <!-- 此处只需要配置ActivityInitializer，FragmentInitializer会在此处只需要配置ActivityInitializer初始化之前自动调用-->
+            <meta-data  android:name="com.xtxk.tnt.library.startup.kotlin.ActivityInitializer"
+                android:value="androidx.startup" />
+            <!-- 这里必须指定为字符串androidx_startup的值，否则声明的组件不生效。-->
+        </provider>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

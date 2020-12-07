@@ -1,0 +1,35 @@
+此文件是对整个项目的结构进行说明的文件
+此demo及相应的library主要是用于学习android Jetpack所做的练习和学习总结
+开始Jetpack大礼包的领取
+1、startup
+主要是对startup包的学习
+作用：app或library项目启动时的集口初始化
+使用库分三步：
+1)、引入库：implementation "androidx.startup:startup-runtime:1.0.0"
+2)、代码中实现Initializer类
+3)、调用，调用分两种方式
+    自动加载的方式：
+    在AndroidManifest中配置配置方式如下：
+    <provider
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        android:exported="false"
+        tools:node="remove">
+        <!-- node merge确保清单合并工具能正确处理冲突-->
+        <!-- This entry makes ExampleLoggerInitializer discoverable. -->
+        <!-- 此处只需要配置ActivityInitializer，FragmentInitializer会在此处只需要配置ActivityInitializer初始化之前自动调用-->
+        <meta-data  android:name="com.xtxk.tnt.library.startup.kotlin.ActivityInitializer"
+            android:value="androidx.startup" />
+    </provider>
+    手动调用的方式：
+     AppInitializer.getInstance(this)
+                .initializeComponent(ActivityInitializer::class.java)
+
+2、Datastore
+一种数据储存解决方案，允许以键值对或协议化对象。用以替换SharedPreferences的存储方式。
+以异步(协程)的方式克服SharedPreferences的一些缺点。
+基于kotlin协程和流程构建而成，可以分为两类。
+    1)、Preferences DataStore 储存健值对的方式
+    2)、Proto DataStroe 存储类型化的对象
+使用库：
+    1)、引用库
